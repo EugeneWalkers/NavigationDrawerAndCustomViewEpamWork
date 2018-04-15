@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">ViewsAndLayouts</string>
+    <string name="item_1">Item 1</string>
+    <string name="item_2">Item 2</string>
+    <string name="navigation_s_header">Navigation\'s Header</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="item_one_text">Hello from item one!</string>
+    <string name="item_two_text">Hello from item two!</string>
+</resources>
