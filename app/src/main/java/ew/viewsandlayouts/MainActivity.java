@@ -3,6 +3,7 @@ package ew.viewsandlayouts;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentItemOne fIO;
     FragmentItemTwo fIT;
     Toolbar toolbar;
+    int selectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +39,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fTrans = fManager.beginTransaction();
         if (savedInstanceState == null){
             fTrans.add(R.id.content_frame, fIO);
+            fTrans.commit();
         }
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(getResources().getString(R.string.item_1));
-        fTrans.commit();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -55,6 +57,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Picasso.get().load(headerImage).into(headerImageToLoad);
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        switch (selectedItem){
+            default:
+            case R.id.item_1:
+                fTrans.add(R.id.content_frame, fIO);
+                break;
+            case R.id.item_2:
+                fTrans.add(R.id.content_frame, fIT);
+                break;
+        }
+        fTrans.commit();
+    }
 
 
     @Override

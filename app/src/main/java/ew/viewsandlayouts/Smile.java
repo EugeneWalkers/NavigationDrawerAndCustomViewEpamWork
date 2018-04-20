@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -100,6 +101,29 @@ public class Smile extends View {
 //        this.state = ss.value;
 //    }
 
+
+
+    @Nullable
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        SavedState st = new SavedState(super.onSaveInstanceState());
+        st.ourState = state;
+        return st;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        SavedState ss = (SavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+
+        this.state = ss.ourState;
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -112,8 +136,6 @@ public class Smile extends View {
         for (int i=0; i<2; i++){
             canvas.drawLine(stateMouth[state][i].x, stateMouth[state][i].y, stateMouth[state][i+1].x, stateMouth[state][i+1].y, mouth);
         }
-        //canvas.drawLine(width/5, 4*height/5, stateMouth[state].x, stateMouth[state].y, mouth);
-        //canvas.drawLine(stateMouth[state].x, stateMouth[state].y, 4*width/5, 4*height/5, mouth);
     }
 
     @Override
@@ -163,7 +185,7 @@ public class Smile extends View {
         main.setStrokeWidth(3);
         eyeMain.setStyle(Paint.Style.STROKE);
         eyesFill.setStyle(Paint.Style.FILL);
-        eyesFill.setColor(Color.BLUE);
+        eyesFill.setColor(eyesColor[state]);
         mouth.setStrokeWidth(2);
     }
 }
