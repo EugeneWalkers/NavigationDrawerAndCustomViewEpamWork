@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentItemTwo fIT;
     Toolbar toolbar;
     int selectedItem;
+    final String ITEM = "item";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +39,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fIT = new FragmentItemTwo();
         fManager = getFragmentManager();
         fTrans = fManager.beginTransaction();
+        toolbar = findViewById(R.id.toolbar);
         if (savedInstanceState == null){
             fTrans.add(R.id.content_frame, fIO);
             fTrans.commit();
+            toolbar.setTitle(getResources().getString(R.string.item_1));
         }
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(getResources().getString(R.string.item_1));
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,13 +62,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        toolbar = findViewById(R.id.toolbar);
         switch (selectedItem){
             default:
             case R.id.item_1:
                 fTrans.add(R.id.content_frame, fIO);
+                toolbar.setTitle(getResources().getString(R.string.item_1));
                 break;
             case R.id.item_2:
                 fTrans.add(R.id.content_frame, fIT);
+                toolbar.setTitle(getResources().getString(R.string.item_2));
                 break;
         }
         fTrans.commit();
@@ -74,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         Fragment fragment = null;
         Class fragmentClass;
@@ -100,9 +105,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         item.setChecked(true);
         toolbar.setTitle(item.getTitle());
-
+        selectedItem = id;
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(ITEM, selectedItem);
     }
 }

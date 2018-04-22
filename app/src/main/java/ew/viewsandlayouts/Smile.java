@@ -55,54 +55,6 @@ public class Smile extends View {
         return true;
     }
 
-//    private static class SavedState extends BaseSavedState {
-//        int value; //this will store the current state from ValueBar
-//
-//        SavedState(Parcelable superState) {
-//            super(superState);
-//        }
-//
-//        private SavedState(Parcel in) {
-//            super(in);
-//            this.value = in.readInt();
-//        }
-//
-//        @Override
-//        public void writeToParcel(Parcel out, int flags) {
-//            super.writeToParcel(out, flags);
-//            out.writeInt(this.value);
-//        }
-//
-//        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
-//            public SavedState createFromParcel(Parcel in) {
-//                return new SavedState(in);
-//            }
-//
-//            public SavedState[] newArray(int size) {
-//                return new SavedState[size];
-//            }
-//        };
-//    }
-//
-//    @Nullable
-//    @Override
-//    protected Parcelable onSaveInstanceState() {
-//        Parcelable saveState = super.onSaveInstanceState();
-//        SavedState savedState = new SavedState(saveState);
-//        savedState.value = state;
-//        return savedState;
-//    }
-//
-//    @Override
-//    protected void onRestoreInstanceState(Parcelable state) {
-//        super.onRestoreInstanceState(state);
-//        SavedState ss = (SavedState) state;
-//        super.onRestoreInstanceState(ss.getSuperState());
-//        this.state = ss.value;
-//    }
-
-
-
     @Nullable
     @Override
     protected Parcelable onSaveInstanceState() {
